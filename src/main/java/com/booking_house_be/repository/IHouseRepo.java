@@ -57,14 +57,17 @@ public interface IHouseRepo extends JpaRepository<House, Integer> {
     }
 
 
-    @Query("SELECT h FROM House h WHERE h.province LIKE concat('%', :province, '%') AND h.name LIKE concat('%', :nameSearch, '%') AND (h.price - h.price * h.sale / 100) BETWEEN :minPrice AND :maxPrice")
-    Page<House> findHousesByNameAndPriceRangeAndLocal(Pageable pageable, @Param("nameSearch") String nameSearch, @Param("province") String province, @Param("minPrice") double minPrice, @Param("maxPrice") double maxPrice);
+    @Query("SELECT h FROM House h WHERE h.province LIKE concat('%', :province, '%') AND h.category.id = :idCate AND h.name LIKE concat('%', :nameSearch, '%') AND (h.price - h.price * h.sale / 100) BETWEEN :minPrice AND :maxPrice")
+    Page<House> findHousesByNameAndPriceRangeAndLocal(Pageable pageable, @Param("nameSearch") String nameSearch, @Param("province") String province, @Param("minPrice") double minPrice, @Param("maxPrice") double maxPrice, @Param("idCate") int idCate);
 
     @Query("SELECT h FROM House h WHERE (h.price - h.price * h.sale / 100)  BETWEEN :minPrice AND :maxPrice")
     Page<House> findAllByPriceRange(Pageable pageable, @Param("minPrice") double minPrice, @Param("maxPrice") double maxPrice);
 
     @Query("SELECT h FROM House h WHERE h.name LIKE concat('%', :nameSearch, '%') AND (h.price - h.price * h.sale / 100) BETWEEN :minPrice AND :maxPrice")
     Page<House> findHousesByNameAndPriceRange(Pageable pageable, @Param("nameSearch") String nameSearch, @Param("minPrice") double minPrice, @Param("maxPrice") double maxPrice);
+
+    @Query("SELECT h FROM House h WHERE h.name LIKE concat('%', :nameSearch, '%') AND h.category.id = :idCate AND (h.price - h.price * h.sale / 100) BETWEEN :minPrice AND :maxPrice")
+    Page<House> findHousesByNameAndPriceRangeAndCate(Pageable pageable, @Param("nameSearch") String nameSearch, @Param("minPrice") double minPrice, @Param("maxPrice") double maxPrice, @Param("idCate") int idCate);
 
 
     House findByIdAndOwnerId(int houseId, int ownerId);

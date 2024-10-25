@@ -9,6 +9,7 @@ import com.booking_house_be.service.IHouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -65,8 +66,13 @@ public class HouseService implements IHouseService {
     }
 
     @Override
-    public Page<House> findHousesByNameAndPriceRangeAndLocal(Pageable pageable, String nameSearch, String province, double minPrice, double maxPrice) {
-        return houseRepo.findHousesByNameAndPriceRangeAndLocal(pageable, nameSearch, province, minPrice, maxPrice);
+    public Page<House> findHousesByNameAndPriceRangeAndCate(Pageable pageable, String nameSearch, double minPrice, double maxPrice, int idCate) {
+        return houseRepo.findHousesByNameAndPriceRangeAndCate(pageable, nameSearch, minPrice, maxPrice,idCate);
+    }
+
+    @Override
+    public Page<House> findHousesByNameAndPriceRangeAndLocal(Pageable pageable, String nameSearch, String province, double minPrice, double maxPrice, int idCate) {
+        return houseRepo.findHousesByNameAndPriceRangeAndLocal(pageable, nameSearch, province, minPrice, maxPrice, idCate);
     }
 
     public House updateStatus(int id, String status) {

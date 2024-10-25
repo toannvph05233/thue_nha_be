@@ -36,6 +36,8 @@ public class House {
     private LocalDate updateAt;
     @ManyToOne
     private Account owner;
+    @ManyToOne
+    private Category category;
 
     public House(HouseDto houseDto){
         this.id = houseDto.getId();

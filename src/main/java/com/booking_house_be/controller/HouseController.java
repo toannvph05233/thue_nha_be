@@ -28,6 +28,7 @@ public class HouseController {
             @RequestParam(value = "size", defaultValue = "12") int size,
             @RequestParam(value = "nameSearch", defaultValue = "") String nameSearch,
             @RequestParam(value = "province", defaultValue = "") String province,
+            @RequestParam(value = "idCate") int idCate,
             @RequestParam(value = "minPrice") double minPrice,
             @RequestParam(value = "maxPrice", required = false) double maxPrice) {
         province = province.replace("_", " ");
@@ -35,12 +36,14 @@ public class HouseController {
             maxPrice = Double.MAX_VALUE;
         }
         Pageable pageable = PageRequest.of(page, size);
-        if (nameSearch.trim().equals("") && province.equals("")) {
+        if (nameSearch.trim().equals("") && province.equals("") && idCate == 0) {
             return houseService.findAllByPriceRange(pageable, minPrice, maxPrice);
         } else if (province.equals("")) {
+            if (idCate == 0)
             return houseService.findHousesByNameAndPriceRange(pageable, nameSearch, minPrice, maxPrice);
+            else return houseService.findHousesByNameAndPriceRangeAndCate(pageable, nameSearch, minPrice, maxPrice,idCate);
         } else {
-            return houseService.findHousesByNameAndPriceRangeAndLocal(pageable, nameSearch, province, minPrice, maxPrice);
+            return houseService.findHousesByNameAndPriceRangeAndLocal(pageable, nameSearch, province, minPrice, maxPrice, idCate);
         }
     }
 
