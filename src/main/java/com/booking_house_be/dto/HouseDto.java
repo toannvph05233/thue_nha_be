@@ -1,6 +1,7 @@
 package com.booking_house_be.dto;
 
 import com.booking_house_be.entity.Account;
+import com.booking_house_be.entity.Category;
 import com.booking_house_be.entity.Image;
 import lombok.Data;
 
@@ -27,6 +28,7 @@ public class HouseDto {
     private List<Image> images;
     private List<Image> imagesDelete;
     private Account owner;
+    private Category category;
     private LocalDate createAt;
     private String status;
 }

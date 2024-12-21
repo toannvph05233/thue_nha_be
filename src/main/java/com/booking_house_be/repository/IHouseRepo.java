@@ -57,8 +57,8 @@ public interface IHouseRepo extends JpaRepository<House, Integer> {
     }
 
 
-    @Query("SELECT h FROM House h WHERE h.province LIKE concat('%', :province, '%') AND h.category.id = :idCate AND h.name LIKE concat('%', :nameSearch, '%') AND (h.price - h.price * h.sale / 100) BETWEEN :minPrice AND :maxPrice")
-    Page<House> findHousesByNameAndPriceRangeAndLocal(Pageable pageable, @Param("nameSearch") String nameSearch, @Param("province") String province, @Param("minPrice") double minPrice, @Param("maxPrice") double maxPrice, @Param("idCate") int idCate);
+    @Query("SELECT h FROM House h WHERE h.province LIKE concat('%', :province, '%') AND h.district LIKE concat('%', :district, '%') AND (h.category.id = :idCate or :idCate = 0) AND h.name LIKE concat('%', :nameSearch, '%') AND (h.price - h.price * h.sale / 100) BETWEEN :minPrice AND :maxPrice")
+    Page<House> findHousesByNameAndPriceRangeAndLocal(Pageable pageable, @Param("nameSearch") String nameSearch, @Param("province") String province, @Param("minPrice") double minPrice, @Param("maxPrice") double maxPrice, @Param("idCate") int idCate, @Param("district") String district);
 
     @Query("SELECT h FROM House h WHERE (h.price - h.price * h.sale / 100)  BETWEEN :minPrice AND :maxPrice")
     Page<House> findAllByPriceRange(Pageable pageable, @Param("minPrice") double minPrice, @Param("maxPrice") double maxPrice);

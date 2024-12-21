@@ -71,8 +71,8 @@ public class HouseService implements IHouseService {
     }
 
     @Override
-    public Page<House> findHousesByNameAndPriceRangeAndLocal(Pageable pageable, String nameSearch, String province, double minPrice, double maxPrice, int idCate) {
-        return houseRepo.findHousesByNameAndPriceRangeAndLocal(pageable, nameSearch, province, minPrice, maxPrice, idCate);
+    public Page<House> findHousesByNameAndPriceRangeAndLocal(Pageable pageable, String nameSearch, String province, double minPrice, double maxPrice, int idCate, String district) {
+        return houseRepo.findHousesByNameAndPriceRangeAndLocal(pageable, nameSearch, province, minPrice, maxPrice, idCate, district);
     }
 
     public House updateStatus(int id, String status) {
