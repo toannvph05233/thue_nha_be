@@ -37,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().ignoringAntMatchers("/**");
         http.authorizeRequests()
                 .antMatchers("/api/forgot/**", "/api/roles", "/api/reviews/**", "/ws/**", "/api/init").permitAll()
-                .antMatchers("/api/temp/login", "/api/login/**", "/api/register", "/api/bookings/**", "/api/accounts/**", "/api/houses/**", "/api/images/**").permitAll()
+                .antMatchers("/api/temp/login", "/api/login/**", "/api/register", "/api/bookings/**", "/api/accounts/**", "/api/houses/**", "/api/images/**","/api/pay/vnpay/**").permitAll()
                 .antMatchers("/api/bookings/**").hasAnyRole("ADMIN", "USER", "OWNER")
                 .antMatchers("/api/owners/**").hasRole("OWNER")
                 .anyRequest().authenticated()
